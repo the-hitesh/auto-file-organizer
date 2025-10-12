@@ -2,7 +2,7 @@
 
 Simple Python script to sort files in a folder into subfolders based on extension.
 
-[![Run Organizer Test](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml)
+[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml)
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 ![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
 ![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
