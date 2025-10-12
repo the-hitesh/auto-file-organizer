@@ -1,26 +1,31 @@
+[![Run Organizer Test](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
+
+![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
+
+![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
+
 # Auto File Organizer
 
 Simple Python script to sort files in a folder into subfolders based on extension.
 
-[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml)
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
-![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
-![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
-
 ## Usage
 - Dry run (safe):  
-  ```bash
-  python organizer.py --path "test_files" --dry
+  ```
+  python organizer.py --path "test_files" --dry"
   ```
 - Apply (actually move files):  
-  ```bash
-  python organizer.py --path "test_files" --apply
+  ```
+  python organizer.py --path "test_files" --apply"
   ```
 
-## Configuration
+## Configuration (NEW 🔧)
 You can edit which extensions go into which folders using `config.py`.
 
-Example:
+### Example:
+Inside `config.py`, there’s a dictionary called `EXT_MAP`:
+
 ```python
 EXT_MAP = {
     ".pdf": "Documents",
@@ -33,25 +38,6 @@ To test your changes:
 1. Add a sample file — e.g. `test_files/readme.md`
 2. Go to **Actions → Run Organizer Test → Run workflow**
 3. Check the logs — it should move `readme.md` into `test_files/Docs`
-
-## Watch mode (auto-run on file changes)
-This repo includes `watcher.py` (requires `watchdog`), which monitors a directory and
-automatically triggers the organizer when files are created/moved/modified.
-
-Install requirements:
-```bash
-pip install -r requirements.txt
-```
-
-Run the watcher (infinite):
-```bash
-python watcher.py --path "test_files"
-```
-
-Run the watcher for 15s (demo/CI):
-```bash
-python watcher.py --path "test_files" --duration 15
-```
 
 ## GitHub Actions (cloud testing)
 This repo includes a workflow at `.github/workflows/test-run.yml` that:
