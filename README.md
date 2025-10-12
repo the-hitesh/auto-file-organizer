@@ -39,14 +39,6 @@ To test your changes:
 2. Go to **Actions → Run Organizer Test → Run workflow**
 3. Check the logs — it should move `readme.md` into `test_files/Docs`
 
-## GitHub Actions (cloud testing)
-This repo includes a workflow at `.github/workflows/test-run.yml` that:
-- Runs the script in dry mode  
-- Runs the script in apply mode  
-- Prints folder structure before/after
-
-You can trigger it manually from the **Actions** tab.
-
 ## Watch mode (auto-run on file changes)
 
 This repo includes `watcher.py` (requires `watchdog`), which monitors a directory and
@@ -65,6 +57,14 @@ Run the watcher for 15s (demo/CI):
 ```
 python watcher.py --path "test_files" --duration 15
 ```
+
+## GitHub Actions (cloud testing)
+This repo includes a workflow at `.github/workflows/test-run.yml` that:
+- Runs the script in dry mode  
+- Runs the script in apply mode  
+- Prints folder structure before/after
+
+You can trigger it manually from the **Actions** tab.
 
 ## Tech
 - Python 3.8+
