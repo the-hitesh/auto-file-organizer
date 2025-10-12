@@ -1,45 +1,72 @@
-[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
-![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
-![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
-
 # Auto File Organizer
 
 Simple Python script to sort files in a folder into subfolders based on extension.
 
-## Features
-- Move files into typed folders (Images, Documents, Code, etc.)
-- Dry-run (preview) and Apply (actually move)
-- Optional JSON config (custom mapping)
-- Optional recursive mode
-- Safe collision handling (adds `(1)`, `(2)`, ...)
+[![Run Organizer Test](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/HiteshB/auto-file-organizer/actions/workflows/test-run.yml)
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
+![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
+![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
 
-## Quick start
-1. Clone/download this repo.
-2. (Optional) Create a virtualenv:
-   - `python3 -m venv venv && source venv/bin/activate`
-3. Prepare a mapping (optional):
-   - `mapping.json` example included.
-4. Dry run:
-   - `python organizer.py -p ./test_files --dry`
-5. Apply:
-   - `python organizer.py -p ./test_files --apply`
+## Usage
+- Dry run (safe):  
+  ```bash
+  python organizer.py --path "test_files" --dry
+  ```
+- Apply (actually move files):  
+  ```bash
+  python organizer.py --path "test_files" --apply
+  ```
 
-## JSON config example
-See `mapping.json` for a sample. Format:
-```json
-{
-  "EXT_MAP": { ".py": "Code", ".jpg": "Images" },
-  "OTHER_FOLDER": "Misc"
+## Configuration
+You can edit which extensions go into which folders using `config.py`.
+
+Example:
+```python
+EXT_MAP = {
+    ".pdf": "Documents",
+    ".py": "Code",
+    ".md": "Docs",  # markdown files go into 'Docs/'
 }
 ```
 
-## Notes
-- Script uses standard library only (no pip installs).
-- Default mapping used if no config provided.
-- Use `--recursive` to scan subfolders (careful, start with `--dry`).
+To test your changes:
+1. Add a sample file — e.g. `test_files/readme.md`
+2. Go to **Actions → Run Organizer Test → Run workflow**
+3. Check the logs — it should move `readme.md` into `test_files/Docs`
 
-## Next ideas (bonus)
-- Watch mode (auto-run when files change) using `watchdog`.
-- GUI with `streamlit` or `tkinter`.
-- Add tests with `pytest`.
+## Watch mode (auto-run on file changes)
+This repo includes `watcher.py` (requires `watchdog`), which monitors a directory and
+automatically triggers the organizer when files are created/moved/modified.
+
+Install requirements:
+```bash
+pip install -r requirements.txt
+```
+
+Run the watcher (infinite):
+```bash
+python watcher.py --path "test_files"
+```
+
+Run the watcher for 15s (demo/CI):
+```bash
+python watcher.py --path "test_files" --duration 15
+```
+
+## GitHub Actions (cloud testing)
+This repo includes a workflow at `.github/workflows/test-run.yml` that:
+- Runs the script in dry mode  
+- Runs the script in apply mode  
+- Prints folder structure before/after
+
+You can trigger it manually from the **Actions** tab.
+
+## Tech
+- Python 3.8+
+- Standard library only
+- Works locally or directly on GitHub via Actions
+
+## Future ideas
+- Recursive mode to handle nested folders
+- Simple GUI with Streamlit
+- Watchdog mode to auto-sort as files appear
