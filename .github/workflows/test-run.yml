@@ -19,10 +19,10 @@ jobs:
         run: ls -la && ls -la test_files || true
 
       - name: Dry run organizer
-        run: python3 organizer.py --path "test_files" --dry
+        run: python3 organizer.py --path "test_files" --dry --recursive
 
       - name: Apply organizer (move files inside workspace)
-        run: python3 organizer.py --path "test_files" --apply
+        run: python3 organizer.py --path "test_files" --apply --recursive
 
       - name: Show repo tree (after)
         run: ls -la test_files || true
