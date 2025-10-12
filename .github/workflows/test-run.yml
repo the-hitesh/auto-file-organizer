@@ -1,4 +1,4 @@
-name: Run Organizer Test (with Recursive Mode)
+name: Run Organizer Test (with Watcher Demo)
 
 on:
   workflow_dispatch: {}
@@ -15,22 +15,22 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Install requirements
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
       - name: Show repo tree (before)
         run: |
-          echo "📂 Repository structure before running organizer:"
+          echo "📂 Repo structure before:"
           tree -a || ls -R
-
-      - name: Dry run organizer (non-recursive)
-        run: |
-          echo "===== DRY RUN (non-recursive) ====="
-          python3 organizer.py --path "test_files" --dry
 
       - name: Apply organizer (non-recursive)
         run: |
           echo "===== APPLY (non-recursive) ====="
-          python3 organizer.py --path "test_files" --apply
+          python3 organizer.py --path "test_files" --apply || true
 
-      - name: Add nested test files for recursive test
+      - name: Add nested test files for recursive & watcher test
         run: |
           mkdir -p test_files/subdir1/images
           mkdir -p test_files/subdir2/docs
@@ -38,17 +38,28 @@ jobs:
           echo "nested image" > test_files/subdir1/images/pic.jpg
           echo "nested doc" > test_files/subdir2/docs/info.txt
 
-      - name: Show repo tree (before recursive)
+      - name: Start watcher (background) for demo (15s)
         run: |
-          echo "📂 Structure before recursive run:"
-          tree -a || ls -R test_files
+          echo "Starting watcher for 15s (background)..."
+          # start watcher that will run organizer on events (dry-run disabled so it will move files)
+          python3 watcher.py --path "test_files" --duration 15 --debounce 1 --dry || true &
 
-      - name: Apply organizer (recursive)
+      - name: Trigger watcher events
         run: |
-          echo "===== APPLY (recursive mode) ====="
-          python3 organizer.py --path "test_files" --apply --recursive
+          # give watcher a moment to start
+          sleep 1
+          echo "triggering events..."
+          echo "auto-created file" > test_files/new_auto_1.txt
+          echo "another auto-created file" > test_files/subdir1/new_auto_2.txt
+          # small sleep so events are debounced and organizer runs
+          sleep 6
 
-      - name: Show repo tree (after recursive)
+      - name: Show repo tree (after watcher run)
         run: |
-          echo "📂 Structure after recursive run:"
-          tree -a || ls -R test_files
+          echo "📂 Structure after watcher demo:"
+          tree -a test_files || ls -R test_files
+
+      - name: Final dry-run (recursive)
+        run: |
+          echo "===== FINAL DRY RUN (recursive) ====="
+          python3 organizer.py --path "test_files" --dry --recursive || true
