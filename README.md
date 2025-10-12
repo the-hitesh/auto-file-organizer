@@ -47,6 +47,25 @@ This repo includes a workflow at `.github/workflows/test-run.yml` that:
 
 You can trigger it manually from the **Actions** tab.
 
+## Watch mode (auto-run on file changes)
+
+This repo includes `watcher.py` (requires `watchdog`), which monitors a directory and
+automatically triggers the organizer when files are created/moved/modified.
+
+Install requirements:
+```
+pip install -r requirements.txt
+```
+Run the watcher (infinite):
+```
+python watcher.py --path "test_files"
+```
+
+Run the watcher for 15s (demo/CI):
+```
+python watcher.py --path "test_files" --duration 15
+```
+
 ## Tech
 - Python 3.8+
 - Standard library only
