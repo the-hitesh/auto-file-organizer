@@ -1,4 +1,4 @@
-[![Run Organizer Test](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
+[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 
