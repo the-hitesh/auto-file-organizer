@@ -11,6 +11,8 @@ EXT_MAP = {
     # documents
     ".pdf": "Documents", ".docx": "Documents", ".doc": "Documents", ".txt": "Documents",
     ".pptx": "Documents", ".ppt": "Documents", ".xlsx": "Documents", ".xls": "Documents",
+    # markdown/docs (NEW)
+    ".md": "Docs",
     # archives
     ".zip": "Archives", ".rar": "Archives", ".tar": "Archives", ".gz": "Archives",
     # video/audio
