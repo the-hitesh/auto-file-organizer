@@ -1,4 +1,4 @@
-name: Run Organizer Test
+name: Run Organizer Test (with Recursive Mode)
 
 on:
   workflow_dispatch: {}
@@ -16,13 +16,39 @@ jobs:
           python-version: "3.10"
 
       - name: Show repo tree (before)
-        run: ls -la && ls -la test_files || true
+        run: |
+          echo "📂 Repository structure before running organizer:"
+          tree -a || ls -R
 
-      - name: Dry run organizer
-        run: python3 organizer.py --path "test_files" --dry --recursive
+      - name: Dry run organizer (non-recursive)
+        run: |
+          echo "===== DRY RUN (non-recursive) ====="
+          python3 organizer.py --path "test_files" --dry
 
-      - name: Apply organizer (move files inside workspace)
-        run: python3 organizer.py --path "test_files" --apply --recursive
+      - name: Apply organizer (non-recursive)
+        run: |
+          echo "===== APPLY (non-recursive) ====="
+          python3 organizer.py --path "test_files" --apply
 
-      - name: Show repo tree (after)
-        run: ls -la test_files || true
+      - name: Add nested test files for recursive test
+        run: |
+          mkdir -p test_files/subdir1/images
+          mkdir -p test_files/subdir2/docs
+          echo "nested text file" > test_files/subdir1/note.md
+          echo "nested image" > test_files/subdir1/images/pic.jpg
+          echo "nested doc" > test_files/subdir2/docs/info.txt
+
+      - name: Show repo tree (before recursive)
+        run: |
+          echo "📂 Structure before recursive run:"
+          tree -a || ls -R test_files
+
+      - name: Apply organizer (recursive)
+        run: |
+          echo "===== APPLY (recursive mode) ====="
+          python3 organizer.py --path "test_files" --apply --recursive
+
+      - name: Show repo tree (after recursive)
+        run: |
+          echo "📂 Structure after recursive run:"
+          tree -a || ls -R test_files
