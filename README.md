@@ -1,3 +1,5 @@
+[![Run Organizer Test](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
+
 # Auto File Organizer
 
 Simple Python script to sort files in a folder into subfolders based on extension.
