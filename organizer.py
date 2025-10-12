@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
 Auto File Organizer — simple, safe, and readable.
+
+Behavior:
+- If a `config.py` file exists in the repo, use EXT_MAP and OTHER_FOLDER from it.
+- Otherwise, fall back to the built-in default mapping.
+
 Usage examples:
     python organizer.py --path "test_files" --dry
     python organizer.py --path "test_files" --apply
@@ -12,24 +17,28 @@ from pathlib import Path
 import shutil
 from typing import Dict, List
 
-# default mapping; edit or extend in config.py or below
-EXT_MAP: Dict[str, str] = {
-    # images
-    ".jpg": "Images", ".jpeg": "Images", ".png": "Images", ".gif": "Images", ".bmp": "Images",
-    # documents
-    ".pdf": "Documents", ".docx": "Documents", ".doc": "Documents", ".txt": "Documents",
-    ".pptx": "Documents", ".ppt": "Documents", ".xlsx": "Documents", ".xls": "Documents",
-    # archives
-    ".zip": "Archives", ".rar": "Archives", ".tar": "Archives", ".gz": "Archives",
-    # video/audio
-    ".mp4": "Videos", ".mkv": "Videos", ".mov": "Videos", ".mp3": "Audio", ".wav": "Audio",
-    # code
-    ".py": "Code", ".cpp": "Code", ".c": "Code", ".h": "Code", ".java": "Code", ".js": "Code",
-    # installers
-    ".exe": "Installers", ".msi": "Installers",
-}
-
-OTHER_FOLDER = "Others"
+# Try to import user-provided mapping from config.py
+try:
+    from config import EXT_MAP, OTHER_FOLDER  # type: ignore
+    # If imported, EXT_MAP and OTHER_FOLDER are used directly
+except Exception:
+    # default mapping; used when config.py is absent or faulty
+    EXT_MAP: Dict[str, str] = {
+        # images
+        ".jpg": "Images", ".jpeg": "Images", ".png": "Images", ".gif": "Images", ".bmp": "Images",
+        # documents
+        ".pdf": "Documents", ".docx": "Documents", ".doc": "Documents", ".txt": "Documents",
+        ".pptx": "Documents", ".ppt": "Documents", ".xlsx": "Documents", ".xls": "Documents",
+        # archives
+        ".zip": "Archives", ".rar": "Archives", ".tar": "Archives", ".gz": "Archives",
+        # video/audio
+        ".mp4": "Videos", ".mkv": "Videos", ".mov": "Videos", ".mp3": "Audio", ".wav": "Audio",
+        # code
+        ".py": "Code", ".cpp": "Code", ".c": "Code", ".h": "Code", ".java": "Code", ".js": "Code",
+        # installers
+        ".exe": "Installers", ".msi": "Installers",
+    }
+    OTHER_FOLDER = "Others"
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
