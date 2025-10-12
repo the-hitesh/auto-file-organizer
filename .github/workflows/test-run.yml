@@ -1,0 +1,28 @@
+name: Run Organizer Test
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Show repo tree (before)
+        run: ls -la && ls -la test_files || true
+
+      - name: Dry run organizer
+        run: python3 organizer.py --path "test_files" --dry
+
+      - name: Apply organizer (move files inside workspace)
+        run: python3 organizer.py --path "test_files" --apply
+
+      - name: Show repo tree (after)
+        run: ls -la test_files || true
