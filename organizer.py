@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Auto File Organizer — now with recursive support.
 
