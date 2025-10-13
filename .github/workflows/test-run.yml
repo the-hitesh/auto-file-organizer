@@ -38,11 +38,11 @@ jobs:
           echo "nested image" > test_files/subdir1/images/pic.jpg
           echo "nested doc" > test_files/subdir2/docs/info.txt
 
-      - name: Start watcher (background) for demo (15s)
+      - name: Start watcher (background) for demo (30s)
         run: |
           echo "Starting watcher for 15s (background)..."
           # start watcher that will run organizer on events (dry-run disabled so it will move files)
-          python3 watcher.py --path "test_files" --duration 15 --debounce 1 --dry || true &
+          python3 watcher.py --path "test_files" --duration 30 --debounce 1 --dry || true &
 
       - name: Trigger watcher events
         run: |
