@@ -1,10 +1,4 @@
-[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml)
-
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
-
-![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)
-
-![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
+[![Run Organizer Test](https://github.com/the-hitesh/auto-file-organizer/actions/workflows/test-run.yml/badge.svg)](https://github.com/<your-username>/auto-file-organizer/actions/workflows/test-run.yml) ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python) ![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions) ![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen)
 
 # Auto File Organizer
 
